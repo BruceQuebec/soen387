@@ -1,0 +1,11 @@
+<component name="ArtifactManager">
+  <artifact type="exploded-ear" build-on-make="true" name="chatroom:ear exploded">
+    <output-path>$PROJECT_DIR$/out/artifacts/chatroom_ear_exploded</output-path>
+    <root id="root">
+      <element id="javaee-facet-resources" facet="chatroom/javaeeApplication/javaEEApplication" />
+      <element id="directory" name="web.war">
+        <element id="artifact" artifact-name="chatroom:war exploded" />
+      </element>
+    </root>
+  </artifact>
+</component>
