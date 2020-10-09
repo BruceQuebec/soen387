@@ -9,8 +9,19 @@ import java.io.IOException;
 
 @WebServlet(urlPatterns = "/index")
 public class welcomeServlet extends HttpServlet {
+
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        request.getRequestDispatcher("/WEB-INF/views/index.jsp").forward(request, response);
+        if(request.getParameterMap().containsKey("style")){
+            String style = request.getParameter("style");
+            request.setAttribute("style", style);
+            System.out.println("get style: " + style);
+            request.getRequestDispatcher("/WEB-INF/views/index.jsp").forward(request, response);
+        }
+        else {
+            System.out.println("get request not found");
+            request.setAttribute("style", "black");
+            request.getRequestDispatcher("/WEB-INF/views/index.jsp").forward(request, response);
+        }
     }
 }

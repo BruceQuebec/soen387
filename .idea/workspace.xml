@@ -6,7 +6,28 @@
     </artifacts-to-build>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1ca78577-a89e-408a-906a-ffce43f67ba3" name="Default Changelist" comment="" />
+    <list default="true" id="1ca78577-a89e-408a-906a-ffce43f67ba3" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/css/white.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/chatroom_ear_exploded/web.war/WEB-INF/classes/soen387/chatroom/controller/chatroomServlet.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/chatroom_ear_exploded/web.war/WEB-INF/classes/soen387/chatroom/controller/chatroomServlet.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/chatroom_ear_exploded/web.war/WEB-INF/classes/soen387/chatroom/controller/welcomeServlet.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/chatroom_ear_exploded/web.war/WEB-INF/classes/soen387/chatroom/controller/welcomeServlet.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/chatroom_ear_exploded/web.war/WEB-INF/classes/soen387/chatroom/model/ChatManager.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/chatroom_ear_exploded/web.war/WEB-INF/classes/soen387/chatroom/model/ChatManager.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/chatroom_ear_exploded/web.war/WEB-INF/classes/soen387/chatroom/model/ChatManagerImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/chatroom_ear_exploded/web.war/WEB-INF/classes/soen387/chatroom/model/ChatManagerImpl.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/chatroom_ear_exploded/web.war/WEB-INF/views/chatroom.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/chatroom_ear_exploded/web.war/WEB-INF/views/chatroom.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/chatroom_ear_exploded/web.war/WEB-INF/views/css/black.css" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/chatroom_ear_exploded/web.war/WEB-INF/views/css/black.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/chatroom_ear_exploded/web.war/WEB-INF/views/error.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/chatroom_ear_exploded/web.war/WEB-INF/views/error.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/chatroom_ear_exploded/web.war/WEB-INF/views/forbidden.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/chatroom_ear_exploded/web.war/WEB-INF/views/forbidden.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/chatroom_ear_exploded/web.war/WEB-INF/views/index.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/chatroom_ear_exploded/web.war/WEB-INF/views/index.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/soen387/chatroom/controller/chatroomServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/soen387/chatroom/controller/chatroomServlet.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/soen387/chatroom/controller/welcomeServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/soen387/chatroom/controller/welcomeServlet.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/soen387/chatroom/model/ChatManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/soen387/chatroom/model/ChatManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/soen387/chatroom/model/ChatManagerImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/soen387/chatroom/model/ChatManagerImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/chatroom.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/chatroom.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/css/black.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/css/black.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/error.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/error.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/forbidden.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/forbidden.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/index.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/index.jsp" afterDir="false" />
+    </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -23,6 +44,9 @@
         <option value="Class" />
       </list>
     </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="LogFilters">
     <option name="FILTER_ERRORS" value="false" />
@@ -230,6 +254,7 @@
         <option name="BuildArtifacts" enabled="true">
           <artifact name="chatroom:war exploded" />
           <artifact name="chatroom:ear exploded" />
+          <artifact name="chatroom:war" />
         </option>
       </method>
     </configuration>
@@ -284,10 +309,28 @@
       <workItem from="1601170546638" duration="10999000" />
       <workItem from="1601260875569" duration="7717000" />
       <workItem from="1601301641941" duration="15483000" />
+      <workItem from="1601694160980" duration="53000" />
+      <workItem from="1602024665229" duration="13472000" />
+      <workItem from="1602075913430" duration="20861000" />
+      <workItem from="1602098855794" duration="4121000" />
+      <workItem from="1602211378601" duration="1953000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="COLUMN_ORDER" />
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
 </project>

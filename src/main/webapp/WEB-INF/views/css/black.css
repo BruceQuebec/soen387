@@ -45,6 +45,14 @@ html,body{
     100% {opacity: 1}
 }
 
+.small_txt1 {
+    font-size: 1.0rem;
+    float: left;
+    position: absolute;
+    top: 1px;
+    right: 1px;
+}
+
 .blink {
     animation-name: blink;
     animation-duration: 1s;

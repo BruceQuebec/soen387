@@ -10,15 +10,38 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <html>
 <head>
-  <style><%@ include file="/WEB-INF/views/css/black.css"%></style>
+  <meta http-equiv="refresh" content="10; URL=http://localhost:8080/chatroom">
+  <style>
+    <jsp:include page="/WEB-INF/views/css/${style}.css" />
+  </style>
+  <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+  <script>
+    function onChangeSubmitCallWebServiceAJAX()
+    {
+      var e = document.getElementById("styleSelect");
+      var style = e.options[e.selectedIndex].text;
+      var url = '/chatroom?style=' + style
+      window.location.href = url;
+    }
+  </script>
   <meta http-equiv="Content-type" content="text/html; charset=utf-8">
   <title>chat room</title>
 </head>
 <body>
-<div class="txt">Welcome to chat room</div>
+<div class="small_txt1">
+  select page style:
+  <select id="styleSelect" onchange="onChangeSubmitCallWebServiceAJAX()">
+    <option>select style</option>
+    <option value="1">black</option>
+    <option value="2">white</option>
+  </select>
+</div>
+<div class="txt">
+  Welcome to Chat Room
+</div>
 <div id="app1">
   <div class="txt">Message List:</div>
-  <div id="msgDiv" class="small_txt">
+  <div id="ownBubble" class="small_txt">
     <c:forEach items="${messageMap}" var="entry">
       <p>
         <div>
@@ -33,7 +56,7 @@
   </div>
 
   <div class="txt" style="margin-top:30px">Send Message:</div>
-  <div id="sendDiv" class="small_txt">
+  <div id="" class="small_txt">
     <form action="chatroom" method="post">
       <p><span>Netname: <input type="text" id="user" name="user" size="30"></span></p>
       <p>
@@ -44,8 +67,8 @@
     </form>
   </div>
 
-  <div class="txt" style="margin-top:30px">Download Message:</div>
-  <div id="downlistFromToDiv" class="small_txt">
+  <div class="txt">Download Message:</div>
+  <div id="otherBubble" class="small_txt">
     <form action="chatroom" method="get">
       <p><span>Select index range to list:</span></p>
       <p>

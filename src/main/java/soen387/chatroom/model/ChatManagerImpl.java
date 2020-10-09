@@ -23,7 +23,7 @@ public class ChatManagerImpl implements ChatManager {
     public void postMessage(String user, String message) { this.messages.put(this.count++, new Pair<String, String>(user, message)); }
 
     @Override
-    public Map<Integer, Pair<String, String>> ListMessages(int start, int end) {
+    public Map<Integer, Pair<String, String>> listMessages(int start, int end) {
         Map<Integer, Pair<String, String>> result = this.messages.
                 entrySet().
                 stream().
@@ -32,17 +32,22 @@ public class ChatManagerImpl implements ChatManager {
         return result;
     }
 
-    public Map<Integer, Pair<String, String>> ListMessages(){
+    public Map<Integer, Pair<String, String>> listMessages(){
         return this.messages;
     }
 
     @Override
-    public void ClearChat(int start, int end) {
+    public void clearChat(int start, int end) {
         this.messages.entrySet().removeIf(entry -> entry.getKey().compareTo(start)>=0 && entry.getKey().compareTo(end)<=0);
         this.count = 0;
         Map<Integer, Pair<String, String>> clearedMessageMap = new HashMap<>();
         this.messages.forEach((k,v)->{ clearedMessageMap.put(this.count++, v); });
         this.messages = clearedMessageMap;
+    }
+
+    @Override
+    public void clearChat(){
+        this.messages.clear();
     }
 
     public int getCount(){

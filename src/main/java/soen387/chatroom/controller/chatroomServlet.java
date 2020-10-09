@@ -22,23 +22,27 @@ public class chatroomServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         String referrer = request.getHeader("referer");
-        if(referrer==null) request.getRequestDispatcher("/WEB-INF/views/forbidden.jsp").forward(request, response);
+        if(referrer==null) {
+            styleCheck(request);
+            request.getRequestDispatcher("/WEB-INF/views/forbidden.jsp").forward(request, response);
+        }
         else {
+            styleCheck(request);
             this.messageDownloadDeleteHandler(request, response);
-
-            Map<Integer, Pair<String, String>> messageMap = chatManagerImpl.ListMessages();
+            Map<Integer, Pair<String, String>> messageMap = chatManagerImpl.listMessages();
             request.setAttribute("messageMap", messageMap);
             request.getRequestDispatcher("/WEB-INF/views/chatroom.jsp").forward(request, response);
         }
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+        styleCheck(request);
         if(Integer.valueOf(request.getParameter("send"))==1 && !request.getParameter("message").equals("")){
             String username = (!request.getParameterMap().containsKey("user") || request.getParameter("user").equals("")) ? "anonymous user" : request.getParameter("user");
             String message = request.getParameter("message");
             chatManagerImpl.postMessage(username, message);
         }
-        Map<Integer, Pair<String, String>> messageMap = chatManagerImpl.ListMessages();
+        Map<Integer, Pair<String, String>> messageMap = chatManagerImpl.listMessages();
         request.setAttribute("messageMap", messageMap);
         request.getRequestDispatcher("/WEB-INF/views/chatroom.jsp").forward(request, response);
     }
@@ -83,7 +87,7 @@ public class chatroomServlet extends HttpServlet {
 
             Map<Integer, Pair<String, String>> messageMap =
                     (from!=0 || to!=this.chatManagerImpl.getCount()) ?
-                            chatManagerImpl.ListMessages(from, to) : chatManagerImpl.ListMessages();
+                            chatManagerImpl.listMessages(from, to) : chatManagerImpl.listMessages();
             response.setContentType(format);
             response.setHeader("Content-disposition", "attachment; filename=" + file_name + "." + file_extension_name);
 
@@ -97,23 +101,40 @@ public class chatroomServlet extends HttpServlet {
             }
         }
         if(request.getParameterMap().containsKey("delete") && Integer.parseInt(request.getParameter("delete"))==1){
-            int from = (request.getParameterMap().containsKey("from") && !request.getParameter("from").equals(""))? Integer.parseInt(request.getParameter("from")) : 0;
-            int to = (request.getParameterMap().containsKey("to") && !request.getParameter("to").equals("")) ? Integer.parseInt(request.getParameter("to")) : this.chatManagerImpl.getCount();
-            messageListIndexValidator(request, response, from, to);
-            chatManagerImpl.ClearChat(from, to);
+            if((!request.getParameterMap().containsKey("from") && !request.getParameterMap().containsKey("to")) || (request.getParameter("from").equals("") && request.getParameter("to").equals(""))){
+                messageListIndexValidator(request, response, 0, 0);
+                chatManagerImpl.clearChat();
+            }
+            else {
+                int from = (request.getParameterMap().containsKey("from") && !request.getParameter("from").equals(""))? Integer.parseInt(request.getParameter("from")) : 0;
+                int to = (request.getParameterMap().containsKey("to") && !request.getParameter("to").equals("")) ? Integer.parseInt(request.getParameter("to")) : this.chatManagerImpl.getCount();
+                messageListIndexValidator(request, response, from, to);
+                chatManagerImpl.clearChat(from, to);
+            }
         }
     }
 
     private void messageListIndexValidator(HttpServletRequest request, HttpServletResponse response, int from, int to) throws ServletException, IOException {
+        styleCheck(request);
         if(from<0 || from>chatManagerImpl.getCount() || to<0 || to>chatManagerImpl.getCount()){
-            String err = "The requested index exceeds the maximum index of the message list!";
+            String err = "The requested index is out of bound!";
             request.setAttribute("err", err);
             request.getRequestDispatcher("/WEB-INF/views/error.jsp").forward(request, response);
         }
-        else if(chatManagerImpl.ListMessages().size()==0){
+        else if(chatManagerImpl.listMessages().size()==0){
             String err = "No message for now, no need to delete or download!";
             request.setAttribute("err", err);
             request.getRequestDispatcher("/WEB-INF/views/error.jsp").forward(request, response);
+        }
+    }
+
+    private void styleCheck(HttpServletRequest request){
+        if(request.getParameterMap().containsKey("style")){
+            String style = request.getParameter("style");
+            request.setAttribute("style", style);
+        }
+        else {
+            request.setAttribute("style", "black");
         }
     }
 }

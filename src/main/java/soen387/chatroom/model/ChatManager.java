@@ -5,6 +5,7 @@ import java.util.Map;
 
 public interface ChatManager {
     public void postMessage(String user, String message);
-    public Map<Integer, Pair<String, String>> ListMessages(int start, int end);
-    public void ClearChat(int start, int end);
+    public Map<Integer, Pair<String, String>> listMessages(int start, int end);
+    public void clearChat(int start, int end);
+    public void clearChat();
 }
