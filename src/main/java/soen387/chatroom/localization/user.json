@@ -1,0 +1,20 @@
+[
+  {
+    "userId": 1,
+    "username": "admin",
+    "email": "admin@admin.com",
+    "password": "e10adc3949ba59abbe56e057f20f883e"
+  },
+  {
+    "userId": 2,
+    "username": "008z",
+    "email": "008z@sina.com",
+    "password": "c4ded2b85cc5be82fa1d2464eba9a7d3"
+  },
+  {
+    "userId": 3,
+    "username": "40043261",
+    "email": "40043261@40043261.com",
+    "password": "3cf9df056358c0641704d34d2118770e"
+  }
+]

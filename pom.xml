@@ -22,6 +22,24 @@
             <artifactId>jstl</artifactId>
             <version>1.2</version>
         </dependency>
+        <!-- https://mvnrepository.com/artifact/mysql/mysql-connector-java -->
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>8.0.22</version>
+        </dependency>
+        <dependency>
+            <groupId>com.google.code.gson</groupId>
+            <artifactId>gson</artifactId>
+            <version>2.8.0</version>
+        </dependency>
+        <!-- https://search.maven.org/remotecontent?filepath=joda-time/joda-time/2.10.3/joda-time-2.10.3.jar -->
+        <dependency>
+            <groupId>joda-time</groupId>
+            <artifactId>joda-time</artifactId>
+            <version>2.10.3</version>
+        </dependency>
+
     </dependencies>
 
     <build>
@@ -47,11 +65,7 @@
                         <contextReloadable>true</contextReloadable>
                     </configuration>
                 </plugin>
-
             </plugins>
-
         </pluginManagement>
-
     </build>
-
 </project>

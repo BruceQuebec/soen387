@@ -7,26 +7,44 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="1ca78577-a89e-408a-906a-ffce43f67ba3" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/css/white.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/soen387/chatroom/controller/AttachmentServlet.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/soen387/chatroom/controller/MessageBoardContentServlet.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/soen387/chatroom/controller/MessageBoardListServlet.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/soen387/chatroom/model/Attachment.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/soen387/chatroom/model/MessageBoard.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/soen387/chatroom/model/MessageBoardImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/soen387/chatroom/model/Post.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/soen387/chatroom/model/User.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/soen387/chatroom/persistence/AttachmentDAO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/soen387/chatroom/persistence/DAO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/soen387/chatroom/persistence/PostDAO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/soen387/chatroom/persistence/TagDAO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/soen387/chatroom/persistence/UserDAO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/soen387/chatroom/utils/Utils.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/classes/properties.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/views/bbsdetail.jsp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/views/bbsedit.jsp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/views/login.jsp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/views/messageboard.jsp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/views/messageboardcontent.jsp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/views/messageboardedit.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/artifacts/chatroom_war_exploded.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/artifacts/chatroom_war_exploded.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/chatroom_ear_exploded/web.war/WEB-INF/classes/soen387/chatroom/controller/chatroomServlet.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/chatroom_ear_exploded/web.war/WEB-INF/classes/soen387/chatroom/controller/chatroomServlet.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/chatroom_ear_exploded/web.war/WEB-INF/classes/soen387/chatroom/controller/welcomeServlet.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/chatroom_ear_exploded/web.war/WEB-INF/classes/soen387/chatroom/controller/welcomeServlet.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/chatroom_ear_exploded/web.war/WEB-INF/classes/soen387/chatroom/model/ChatManager.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/chatroom_ear_exploded/web.war/WEB-INF/classes/soen387/chatroom/model/ChatManager.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/chatroom_ear_exploded/web.war/WEB-INF/classes/soen387/chatroom/model/ChatManagerImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/chatroom_ear_exploded/web.war/WEB-INF/classes/soen387/chatroom/model/ChatManagerImpl.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/chatroom_ear_exploded/web.war/WEB-INF/views/chatroom.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/chatroom_ear_exploded/web.war/WEB-INF/views/chatroom.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/chatroom_ear_exploded/web.war/WEB-INF/views/css/black.css" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/chatroom_ear_exploded/web.war/WEB-INF/views/css/black.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/chatroom_ear_exploded/web.war/WEB-INF/views/error.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/chatroom_ear_exploded/web.war/WEB-INF/views/error.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/chatroom_ear_exploded/web.war/WEB-INF/views/forbidden.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/chatroom_ear_exploded/web.war/WEB-INF/views/forbidden.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/chatroom_ear_exploded/web.war/WEB-INF/views/index.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/chatroom_ear_exploded/web.war/WEB-INF/views/index.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/soen387/chatroom/controller/chatroomServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/soen387/chatroom/controller/chatroomServlet.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/soen387/chatroom/controller/welcomeServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/soen387/chatroom/controller/welcomeServlet.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/soen387/chatroom/model/ChatManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/soen387/chatroom/model/ChatManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/soen387/chatroom/model/ChatManagerImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/soen387/chatroom/model/ChatManagerImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/chatroom.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/chatroom.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/css/black.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/css/black.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/error.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/error.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/forbidden.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/forbidden.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/index.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/index.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/chatroom_ear_exploded/web.war/WEB-INF/views/chatroom.jsp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/chatroom_ear_exploded/web.war/WEB-INF/views/css/black.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/chatroom_ear_exploded/web.war/WEB-INF/views/css/white.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/chatroom_ear_exploded/web.war/WEB-INF/views/error.jsp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/chatroom_ear_exploded/web.war/WEB-INF/views/forbidden.jsp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/chatroom_ear_exploded/web.war/WEB-INF/views/index.jsp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/chatroom_ear_exploded/web.war/WEB-INF/web.xml" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/chatroom_ear_exploded/web.war/WEB-INF/web.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/chatroom.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/views/chatroom.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/css/black.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/views/css/black.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/css/white.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/views/css/white.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/error.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/views/error.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/forbidden.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/views/forbidden.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/index.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/views/index.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/web.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/web.xml" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -79,6 +97,7 @@
     <property name="aspect.path.notification.shown" value="true" />
     <property name="last_directory_selection" value="$PROJECT_DIR$/src/main/java/soen387/chatroom" />
     <property name="last_opened_file_path" value="D:/software/development/tools/libraries/java/web/jakarta-taglibs-standard-1.1.2/jakarta-taglibs-standard-1.1.2/lib/jstl.jar!/" />
+    <property name="nodejs_package_manager_path" value="npm" />
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
@@ -86,11 +105,11 @@
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\study\concordia\2020\fall\SOEN387\project\chatroom\src\main\webapp" />
       <recent name="D:\study\concordia\2020\fall\SOEN387\project\chatroom\src\main\webapp\WEB-INF\views\css" />
       <recent name="D:\study\concordia\2020\fall\SOEN387\project\chatroom\src\main\webapp\WEB-INF\views" />
       <recent name="D:\study\concordia\2020\fall\SOEN387\project\chatroom\src\main" />
       <recent name="D:\study\concordia\2020\fall\SOEN387\project\chatroom\web\WEB-INF" />
-      <recent name="D:\study\concordia\2020\fall\SOEN387\project\chatroom\web\views" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="D:\study\concordia\2020\fall\SOEN387\project\chatroom\src\main\webapp\WEB-INF" />
@@ -314,6 +333,20 @@
       <workItem from="1602075913430" duration="20861000" />
       <workItem from="1602098855794" duration="4121000" />
       <workItem from="1602211378601" duration="1953000" />
+      <workItem from="1602214334676" duration="56000" />
+      <workItem from="1603211203096" duration="3207000" />
+      <workItem from="1603739101047" duration="19631000" />
+      <workItem from="1604323589924" duration="22010000" />
+      <workItem from="1604412789564" duration="30888000" />
+      <workItem from="1604495695319" duration="36818000" />
+      <workItem from="1604582814676" duration="18857000" />
+      <workItem from="1604613366089" duration="1373000" />
+      <workItem from="1604630996444" duration="628000" />
+      <workItem from="1604715788211" duration="14739000" />
+      <workItem from="1604782109069" duration="23877000" />
+      <workItem from="1604846110419" duration="29279000" />
+      <workItem from="1604934072615" duration="2672000" />
+      <workItem from="1605274263934" duration="1763000" />
     </task>
     <servers />
   </component>
