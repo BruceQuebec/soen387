@@ -63,7 +63,7 @@ public class PostDAO extends DAO {
     }
 
     public List<Pair<Post, List<Pair<Integer, String>>>> findPosts(int offset, int limit) throws SQLException, ClassNotFoundException {
-        String listPostsSql = "SELECT * FROM " + db_post_table + " LIMIT " + limit + " OFFSET " + offset + "";
+        String listPostsSql = "SELECT * FROM " + db_post_table + " ORDER BY ctime DESC LIMIT " + limit + " OFFSET " + offset + "";
         List<Pair<Post, List<Pair<Integer, String>>>> posts = queryPost(listPostsSql);
         return posts;
     }
@@ -118,7 +118,7 @@ public class PostDAO extends DAO {
     }
 
     public List<Pair<Post, List<Pair<Integer, String>>>> findByUid(int uid, int offset, int limit) throws SQLException, ClassNotFoundException {
-        String queryPostUidSql = "SELECT * FROM " + db_post_table + " WHERE uid=" + uid + " LIMIT " + limit + " OFFSET " + offset + "";
+        String queryPostUidSql = "SELECT * FROM " + db_post_table + " WHERE uid=" + uid + " ORDER BY ctime DESC LIMIT " + limit + " OFFSET " + offset + "";
         List<Pair<Post, List<Pair<Integer, String>>>> posts = queryPost(queryPostUidSql);
         return posts;
     }
@@ -140,7 +140,7 @@ public class PostDAO extends DAO {
     }
 
     public List<Pair<Post, List<Pair<Integer, String>>>> findByHashtag(int tid, int offset, int limit) throws SQLException, ClassNotFoundException {
-        String queryPostTagSql = "SELECT * FROM " + db_post_table + " WHERE pid IN (SELECT pid FROM " + db_ptr_table + " WHERE tid = " + tid + ") LIMIT " + limit + " OFFSET " + offset + "";
+        String queryPostTagSql = "SELECT * FROM " + db_post_table + " WHERE pid IN (SELECT pid FROM " + db_ptr_table + " WHERE tid = " + tid + ") ORDER BY ctime DESC LIMIT " + limit + " OFFSET " + offset + "";
         List<Pair<Post, List<Pair<Integer, String>>>> posts = queryPost(queryPostTagSql);
         return posts;
     }

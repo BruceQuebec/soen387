@@ -4,6 +4,7 @@ import javafx.util.Pair;
 import soen387.chatroom.persistence.AttachmentDAO;
 import soen387.chatroom.persistence.PostDAO;
 import soen387.chatroom.persistence.TagDAO;
+import soen387.chatroom.persistence.UserDAO;
 
 import javax.sql.rowset.serial.SerialBlob;
 import java.io.FileNotFoundException;
@@ -17,27 +18,28 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class MessageBoardImpl implements MessageBoard {
-    public static final String USER_LOCAL_FILE_PATH = "D:\\study\\concordia\\2020\\fall\\SOEN387\\project\\chatroom\\src\\main\\java\\soen387\\chatroom\\localization\\user.json";
     private static PostDAO postDAO;
     private static AttachmentDAO attachmentDAO;
     private static TagDAO tagDAO;
+    private static UserDAO userDAO;
 
-    public MessageBoardImpl(PostDAO postDAO, AttachmentDAO attachmentDAO, TagDAO tagDAO){
+    public MessageBoardImpl(PostDAO postDAO, AttachmentDAO attachmentDAO, TagDAO tagDAO, UserDAO userDAO){
         this.postDAO = postDAO;
         this.attachmentDAO = attachmentDAO;
         this.tagDAO = tagDAO;
+        this.userDAO = userDAO;
     };
 
     @Override
-    public List<User> userAuthenticate(String username, String password) throws FileNotFoundException, NoSuchAlgorithmException {
+    public List<User> userAuthenticate(String username, String password, String jsonUsrLocalFileFullPath) throws FileNotFoundException, NoSuchAlgorithmException {
         String passwordMd5 = User.md5gen(password);
-        List<User> userdata = User.deserializationFromJson(USER_LOCAL_FILE_PATH);
+        List<User> userdata = User.deserializationFromJson(jsonUsrLocalFileFullPath);
         List<User> userMatch = userdata.stream().filter(user -> user.username.equals(username) && user.password.equals(passwordMd5)).collect(Collectors.toList());
         return userMatch;
     }
 
     @Override
-    public void userSignup() throws NoSuchAlgorithmException, IOException {
+    public void userSignup(String jsonUsrLocalFileFullPath) throws NoSuchAlgorithmException, IOException {
         User user1 = new User("admin", "admin@admin.com", "123456",true);
         User user2 = new User("008z", "008z@sina.com", "45678",true);
         User user3 = new User("40043261", "40043261@40043261.com", "40043261",true);
@@ -45,7 +47,7 @@ public class MessageBoardImpl implements MessageBoard {
         users.add(user1);
         users.add(user2);
         users.add(user3);
-        User.serializationToJson(users, USER_LOCAL_FILE_PATH);
+        User.serializationToJson(users, jsonUsrLocalFileFullPath);
     }
 
     @Override
@@ -169,6 +171,10 @@ public class MessageBoardImpl implements MessageBoard {
         blob.setBytes(1,attachment.getContent());
         this.attachmentDAO.modifyAttachment(aid, attachment.getType(), attachment.getName(), attachment.getSize(), blob);
         return aid;
+    }
+
+    public int getUidByName(String username) throws NoSuchAlgorithmException, SQLException, ClassNotFoundException {
+        return this.userDAO.getUserByName(username).get(0).getUserId();
     }
 
     public int deleteAttachment(int aid) throws SQLException, ClassNotFoundException {

@@ -27,7 +27,7 @@ String user_session = (String) request.getSession().getAttribute("username");
 <table border="0" width="600"> 
   <tr>
     <c:set var="user_session" value="<%=user_session %>" scope="page" />
-    <td width="100%">welcome back:&nbsp;<b>${user_session}</b></td>
+      <td width="100%">welcome back:&nbsp;<b>${user_session}</b> &nbsp; <a href="/messageboard?query=1">&nbsp;search</a> &nbsp; <a href="/messageboard?logout=1">logout</a></td>
   </tr>
 </table>          
   </center>          
@@ -72,7 +72,7 @@ String user_session = (String) request.getSession().getAttribute("username");
               <ul align="left">
                   <li>
                     <img border="0" src="../views/images/001.gif">&nbsp;<a href="messageboardcontent?pid=${post.key.getPid()}" >${post.key.getTitle()}</a>
-                    【<a href="messageboard?usersearch=1&userid=${post.key.getUserId()}"><b>${post.key.getUsername()}</b></a>】<i>${post.key.timeFormat(post.key.getCreatedTime())}</i>
+                    【<a href="messageboard?search_type=userid&keyword=${post.key.getUserId()}"><b>${post.key.getUsername()}</b></a>】<i>${post.key.timeFormat(post.key.getCreatedTime())}</i>
                     <c:if test="${post.key.getCreatedTime()!=post.key.getLastModifiedTime()}">
                         <font color="#FF0000">★</font>
                     </c:if>
@@ -80,7 +80,7 @@ String user_session = (String) request.getSession().getAttribute("username");
                       <a href="/messageboardcontent?pid=${post.key.getPid()}&postdel=delete">delete</a>&nbsp;&nbsp;
                     </c:if>
                     <c:forEach items="${post.key.getHashTags()}" var="tag">
-                    <a href="messageboard?tagsearch=1&tag=${tag}"># ${tag}</a>&nbsp;
+                    <a href="messageboard?search_type=tag&keyword=${tag}"># ${tag}</a>&nbsp;
                     </c:forEach>
                   </li>
               </ul>

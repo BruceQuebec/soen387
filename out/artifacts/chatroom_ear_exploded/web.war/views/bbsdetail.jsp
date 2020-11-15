@@ -48,7 +48,7 @@ int uid_session = (int) request.getSession().getAttribute("uid");
                                         <p align="left" style="margin-top: 0; margin-bottom: 0">
                                             <b><font color="#008000">Hash Tags:</font></b><br/>
                                             <c:forEach items="${post.key.getHashTags()}" var="tag">
-                                                <a href="messageboard?tagsearch=1&tag=${tag}"># ${tag}</a>&nbsp;
+                                                <a href="messageboard?search_type=tag&keyword=${tag}"># ${tag}</a>&nbsp;
                                             </c:forEach>
                                         </p><br/>
                                         <p align="left" style="margin-top: 0; margin-bottom: 0">

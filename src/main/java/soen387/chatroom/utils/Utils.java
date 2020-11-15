@@ -15,6 +15,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class Utils {
+    private static final String jsonUsrKey = "db_user_local_path";
 
     public static Properties getPropertiesFromClasspath(String propFileName, HttpServlet instanceOfServlet) throws IOException
     {
@@ -23,6 +24,11 @@ public class Utils {
         if (inputStream == null) { throw new FileNotFoundException("property file '" + propFileName + "' not found in the classpath"); }
         props.load(inputStream);
         return props;
+    }
+
+    public static String getUsrLocalJsonPath(String propFileName, HttpServlet instanceOfServlet) throws IOException {
+        Properties props = Utils.getPropertiesFromClasspath(propFileName, instanceOfServlet);
+        return props.getProperty(jsonUsrKey);
     }
 
     public static List<Attachment> extractAttachment(HttpServletRequest request) throws IOException, ServletException {
@@ -37,7 +43,6 @@ public class Utils {
                 byte[] buffer = new byte[10240];
                 for (int length = 0; (length = input.read(buffer)) > 0;) output.write(buffer, 0, length);
                 byte[] filedata = output.toByteArray();
-                System.out.println("filedata is null?" + filedata==null);
                 attachments.add(new Attachment(fileInfo.get("filetype"), fileInfo.get("filename"), part.getSize(),filedata));
             }
         }

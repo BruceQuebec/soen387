@@ -9,8 +9,8 @@ import java.util.Collection;
 import java.util.List;
 
 public interface MessageBoard {
-    public Collection<User> userAuthenticate(String username, String password) throws FileNotFoundException, NoSuchAlgorithmException;
-    public void userSignup() throws NoSuchAlgorithmException, IOException;
+    public Collection<User> userAuthenticate(String username, String password, String jsonUsrLocalFileFullPath) throws FileNotFoundException, NoSuchAlgorithmException;
+    public void userSignup(String jsonUsrLocalFileFullPath) throws NoSuchAlgorithmException, IOException;
     public List<? extends Object> listPosts(int startIdx, int postsPerPage) throws SQLException, ClassNotFoundException;
     public int createPost(Post post) throws SQLException, ClassNotFoundException;
     public void deletePost(int pid) throws SQLException, ClassNotFoundException;

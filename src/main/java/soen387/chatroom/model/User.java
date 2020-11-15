@@ -67,8 +67,7 @@ public class User {
     }
 
     public static List<User> deserializationFromJson(String path) throws FileNotFoundException {
-        final Type USER_TYPE = new TypeToken<List<User>>() {
-        }.getType();
+        final Type USER_TYPE = new TypeToken<List<User>>() {}.getType();
         Gson gson = new Gson();
         JsonReader reader = new JsonReader(new FileReader(path));
         List<User> data = gson.fromJson(reader, USER_TYPE);

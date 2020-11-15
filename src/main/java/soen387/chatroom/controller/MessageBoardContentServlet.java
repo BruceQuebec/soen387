@@ -1,13 +1,14 @@
 package soen387.chatroom.controller;
 
 import javafx.util.Pair;
-import soen387.chatroom.persistence.AttachmentDAO;
-import soen387.chatroom.persistence.PostDAO;
-import soen387.chatroom.persistence.TagDAO;
 import soen387.chatroom.model.Attachment;
 import soen387.chatroom.model.MessageBoardImpl;
 import soen387.chatroom.model.Post;
 import soen387.chatroom.model.User;
+import soen387.chatroom.persistence.AttachmentDAO;
+import soen387.chatroom.persistence.PostDAO;
+import soen387.chatroom.persistence.TagDAO;
+import soen387.chatroom.persistence.UserDAO;
 import soen387.chatroom.utils.Utils;
 
 import javax.servlet.ServletException;
@@ -30,9 +31,10 @@ import java.util.List;
 )
 public class MessageBoardContentServlet extends HttpServlet {
     private final String PROPERTIES_FILE = "properties.properties";
-    MessageBoardImpl messageBoardImpl = new MessageBoardImpl(new PostDAO(Utils.getPropertiesFromClasspath(PROPERTIES_FILE, this).getProperty("db_url"), Utils.getPropertiesFromClasspath(PROPERTIES_FILE, this).getProperty("db_driver"), Utils.getPropertiesFromClasspath(PROPERTIES_FILE, this).getProperty("db_root"), Utils.getPropertiesFromClasspath(PROPERTIES_FILE, this).getProperty("db_password"), Utils.getPropertiesFromClasspath(PROPERTIES_FILE, this).getProperty("db_post_table") , Utils.getPropertiesFromClasspath(PROPERTIES_FILE, this).getProperty("db_ptr_table"))
-            ,new AttachmentDAO(Utils.getPropertiesFromClasspath(PROPERTIES_FILE, this).getProperty("db_url"), Utils.getPropertiesFromClasspath(PROPERTIES_FILE, this).getProperty("db_driver"), Utils.getPropertiesFromClasspath(PROPERTIES_FILE, this).getProperty("db_root"), Utils.getPropertiesFromClasspath(PROPERTIES_FILE, this).getProperty("db_password"), Utils.getPropertiesFromClasspath(PROPERTIES_FILE, this).getProperty("db_attachment_table"))
-            ,new TagDAO(Utils.getPropertiesFromClasspath(PROPERTIES_FILE, this).getProperty("db_url"), Utils.getPropertiesFromClasspath(PROPERTIES_FILE, this).getProperty("db_driver"), Utils.getPropertiesFromClasspath(PROPERTIES_FILE, this).getProperty("db_root"), Utils.getPropertiesFromClasspath(PROPERTIES_FILE, this).getProperty("db_password"), Utils.getPropertiesFromClasspath(PROPERTIES_FILE, this).getProperty("db_tag_table")));
+    MessageBoardImpl messageBoardImpl = new MessageBoardImpl(new PostDAO(Utils.getPropertiesFromClasspath(PROPERTIES_FILE,this).getProperty("db_url"), Utils.getPropertiesFromClasspath(PROPERTIES_FILE,this).getProperty("db_driver"), Utils.getPropertiesFromClasspath(PROPERTIES_FILE,this).getProperty("db_root"), Utils.getPropertiesFromClasspath(PROPERTIES_FILE,this).getProperty("db_password"), Utils.getPropertiesFromClasspath(PROPERTIES_FILE,this).getProperty("db_post_table") , Utils.getPropertiesFromClasspath(PROPERTIES_FILE,this).getProperty("db_ptr_table"))
+            ,new AttachmentDAO(Utils.getPropertiesFromClasspath(PROPERTIES_FILE,this).getProperty("db_url"), Utils.getPropertiesFromClasspath(PROPERTIES_FILE,this).getProperty("db_driver"), Utils.getPropertiesFromClasspath(PROPERTIES_FILE,this).getProperty("db_root"), Utils.getPropertiesFromClasspath(PROPERTIES_FILE,this).getProperty("db_password"), Utils.getPropertiesFromClasspath(PROPERTIES_FILE,this).getProperty("db_attachment_table"))
+            ,new TagDAO(Utils.getPropertiesFromClasspath(PROPERTIES_FILE,this).getProperty("db_url"), Utils.getPropertiesFromClasspath(PROPERTIES_FILE,this).getProperty("db_driver"), Utils.getPropertiesFromClasspath(PROPERTIES_FILE,this).getProperty("db_root"), Utils.getPropertiesFromClasspath(PROPERTIES_FILE,this).getProperty("db_password"), Utils.getPropertiesFromClasspath(PROPERTIES_FILE,this).getProperty("db_tag_table"))
+            ,new UserDAO(Utils.getPropertiesFromClasspath(PROPERTIES_FILE,this).getProperty("db_url"), Utils.getPropertiesFromClasspath(PROPERTIES_FILE,this).getProperty("db_driver"), Utils.getPropertiesFromClasspath(PROPERTIES_FILE,this).getProperty("db_root"), Utils.getPropertiesFromClasspath(PROPERTIES_FILE,this).getProperty("db_password"), Utils.getPropertiesFromClasspath(PROPERTIES_FILE,this).getProperty("db_user_table")));
 
     public MessageBoardContentServlet() throws IOException {}
 
@@ -68,6 +70,7 @@ public class MessageBoardContentServlet extends HttpServlet {
                     request.setAttribute("post", post.get(0));
                     if(request.getParameterMap().containsKey("modify") && request.getParameter("modify").equals("modify")){
                         if(post.get(0).getKey().getUserId()==(Integer) request.getSession(false).getAttribute("uid")){
+                            response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
                             request.getRequestDispatcher("/views/bbsedit.jsp").forward(request, response);
                         }
                         else {
@@ -82,6 +85,7 @@ public class MessageBoardContentServlet extends HttpServlet {
                         request.getRequestDispatcher("/views/bbsinfo.jsp").forward(request, response);
                     }
                     else {
+                        response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
                         request.getRequestDispatcher("/views/bbsdetail.jsp").forward(request, response);
                     }
                 }
@@ -101,7 +105,9 @@ public class MessageBoardContentServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException{
         if(request.getParameterMap().containsKey("username") && !request.getParameter("username").equals("")  && request.getParameterMap().containsKey("password") && !request.getParameter("password").equals("")){
             try {
-                List<User> userMatch = messageBoardImpl.userAuthenticate(request.getParameter("username"), request.getParameter("password"));
+                String jsonUsrLocalFilePath = Utils.getUsrLocalJsonPath(PROPERTIES_FILE,this);
+                String jsonUsrLocalFileFullPath = this.getServletContext().getRealPath(jsonUsrLocalFilePath);
+                List<User> userMatch = messageBoardImpl.userAuthenticate(request.getParameter("username"), request.getParameter("password"), jsonUsrLocalFileFullPath);
                 if(userMatch.size()>0){
                     HttpSession session = request.getSession(true);
                     session.setAttribute("username", userMatch.get(0).getUsername());
@@ -151,7 +157,6 @@ public class MessageBoardContentServlet extends HttpServlet {
                         try {
                             post.setPid(pid);
                             messageBoardImpl.editPost(pid, post);
-
                         } catch (SQLException e) {
                             e.printStackTrace();
                         } catch (ClassNotFoundException e) {
@@ -177,15 +182,16 @@ public class MessageBoardContentServlet extends HttpServlet {
                     if(hashTags.size()>0){
                         post.setHashTags(hashTags);
                     }
+                    int pid = 0;
                     try {
-                        messageBoardImpl.createPost(post);
+                        pid = messageBoardImpl.createPost(post);
                     } catch (SQLException e) {
                         e.printStackTrace();
                     } catch (ClassNotFoundException e) {
                         e.printStackTrace();
                     }
                     request.setAttribute("info", "New post has been successfully created!");
-                    request.setAttribute("redirect_link", "http://localhost:8080/messageboardcontent?pid=" + Integer.valueOf(request.getParameter("pid")) + "");
+                    request.setAttribute("redirect_link", "http://localhost:8080/messageboardcontent?pid=" + pid + "");
                     request.getRequestDispatcher("/views/bbsinfo.jsp").forward(request, response);
                 }
                 else {

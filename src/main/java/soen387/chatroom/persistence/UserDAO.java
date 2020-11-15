@@ -23,11 +23,12 @@ public class UserDAO extends DAO{
 
     public List<User> getUserByName(String username) throws SQLException, ClassNotFoundException, NoSuchAlgorithmException {
         List<User> users = new ArrayList<>();
-        String sql = "SELECT * FROM " + db_user_table + " WHERE username=" + username + "";
+        String sql = "SELECT * FROM " + db_user_table + " WHERE username LIKE ?";
         PreparedStatement ps = super.db_connect().prepareStatement(sql);
+        ps.setString(1, username);
         ResultSet rs = ps.executeQuery();
         if (rs.next()) {
-            users.add(new User(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), false));
+            users.add(new User(rs.getInt("uid"), rs.getString("username"), rs.getString("email"), rs.getString("password"), false));
         }
         rs.close();
         return users;
