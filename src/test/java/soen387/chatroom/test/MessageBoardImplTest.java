@@ -111,7 +111,7 @@ public class MessageBoardImplTest {
    }
 
    @Test
-   public void adminUserGroupConstrainForPostCRUDTest() throws IOException, SQLException, ClassNotFoundException{
+   public void adminUserGroupConstrainForPostViewTest() throws IOException, SQLException, ClassNotFoundException{
       // given
       final String group_file_path = "D:\\study\\concordia\\2020\\fall\\SOEN387\\project\\chatroom\\src\\main\\webapp\\WEB-INF\\classes\\group.json";
       Group userGroup = mock(Group.class);
@@ -144,7 +144,7 @@ public class MessageBoardImplTest {
    }
 
    @Test
-   public void rejectedNormalUserGroupConstrainForPostCRUDTest() throws IOException, SQLException, ClassNotFoundException{
+   public void rejectedNormalUserGroupConstrainForPostViewTest() throws IOException, SQLException, ClassNotFoundException{
       // given
       final String group_file_path = "D:\\study\\concordia\\2020\\fall\\SOEN387\\project\\chatroom\\src\\main\\webapp\\WEB-INF\\classes\\group.json";
       Group userGroup = mock(Group.class);
@@ -171,7 +171,7 @@ public class MessageBoardImplTest {
    }
 
    @Test
-   public void approvedNormalUserGroupConstrainForPostCRUDTest() throws IOException, SQLException, ClassNotFoundException{
+   public void approvedNormalUserGroupConstrainForPostViewTest() throws IOException, SQLException, ClassNotFoundException{
       // given
       final String group_file_path = "D:\\study\\concordia\\2020\\fall\\SOEN387\\project\\chatroom\\src\\main\\webapp\\WEB-INF\\classes\\group.json";
       Group userGroup = mock(Group.class);
