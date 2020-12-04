@@ -1,0 +1,43 @@
+[
+  {
+    "name": "admin",
+    "type": "admin",
+    "parent": "",
+    "subGroups": []
+  },
+  {
+    "name": "public",
+    "type": "public",
+    "parent": "",
+    "subGroups": []
+  },
+  {
+    "name": "Concordia",
+    "type": "normal",
+    "parent": "",
+    "subGroups": [
+      "GinaCodyDept"
+    ]
+  },
+  {
+    "name": "GinaCodyDept",
+    "type": "normal",
+    "parent": "Concordia",
+    "subGroups": [
+      "CompClass",
+      "SoenClass"
+    ]
+  },
+  {
+    "name": "CompClass",
+    "type": "normal",
+    "parent": "GinaCodyDept",
+    "subGroups": []
+  },
+  {
+    "name": "SoenClass",
+    "type": "normal",
+    "parent": "GinaCodyDept",
+    "subGroups": []
+  }
+]

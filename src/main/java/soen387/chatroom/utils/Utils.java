@@ -1,6 +1,7 @@
 package soen387.chatroom.utils;
 
 import soen387.chatroom.model.Attachment;
+import soen387.chatroom.model.Group;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -13,9 +14,13 @@ import java.io.InputStream;
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
 public class Utils {
     private static final String jsonUsrKey = "db_user_local_path";
+    private static final String jsonGroupKey = "db_group_local_path_load";
+    private static final String adminGroupNameKey = "admin_group_name";
+    private static final String userManagerClassNameKey = "user_manager_class_path";
 
     public static Properties getPropertiesFromClasspath(String propFileName, HttpServlet instanceOfServlet) throws IOException
     {
@@ -29,6 +34,44 @@ public class Utils {
     public static String getUsrLocalJsonPath(String propFileName, HttpServlet instanceOfServlet) throws IOException {
         Properties props = Utils.getPropertiesFromClasspath(propFileName, instanceOfServlet);
         return props.getProperty(jsonUsrKey);
+    }
+
+    public static String getGroupLocalJsonPath(String propFileName, HttpServlet instanceOfServlet) throws IOException {
+        Properties props = Utils.getPropertiesFromClasspath(propFileName, instanceOfServlet);
+        return props.getProperty(jsonGroupKey);
+    }
+
+    public static List<Group> getGroups(String propFileName, HttpServlet instanceOfServlet) throws IOException {
+        String group_local_file_path = Utils.getGroupLocalJsonPath(propFileName, instanceOfServlet);
+        String jsonGroupLocalFileFullPath = instanceOfServlet.getServletContext().getRealPath(group_local_file_path);
+        List<Group> groups = Group.deserializationFromJson(jsonGroupLocalFileFullPath);
+        return groups;
+    }
+
+    public static List<String> getGroupNameList (String propFileName, HttpServlet instanceOfServlet, String curUsrGroupName) throws IOException {
+        List<Group> groups = Utils.getGroups(propFileName, instanceOfServlet);
+        List<String> curGroupNames = new ArrayList<>();
+        if(curUsrGroupName.equals("admin")){
+            groups.forEach(group->{curGroupNames.add(group.getName());});
+        }
+        else {
+            List<Group> curGroup = groups.stream().filter(group->group.getName().equals(curUsrGroupName)).collect(Collectors.toList());
+            curGroup.stream().forEach(group->{
+                curGroupNames.add(group.getName());
+                if(group.getSubGroups().size()>0){ group.getSubGroups().stream().forEach(subGroup->{curGroupNames.add(subGroup);});}
+            });
+        }
+        return curGroupNames;
+    }
+
+    public static String getAdminGroupNameKey(String propFileName, HttpServlet instanceOfServlet) throws IOException {
+        Properties props = Utils.getPropertiesFromClasspath(propFileName, instanceOfServlet);
+        return props.getProperty(adminGroupNameKey);
+    }
+
+    public static String getUserManagerClassNameKey(String propFileName, HttpServlet instanceOfServlet) throws IOException {
+        Properties props = Utils.getPropertiesFromClasspath(propFileName, instanceOfServlet);
+        return props.getProperty(userManagerClassNameKey);
     }
 
     public static List<Attachment> extractAttachment(HttpServletRequest request) throws IOException, ServletException {

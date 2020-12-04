@@ -9,5 +9,8 @@
         <module name="chatroom" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="chatroom" target="1.8" />
+    </bytecodeTargetLevel>
   </component>
 </project>

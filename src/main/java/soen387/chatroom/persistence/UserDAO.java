@@ -28,7 +28,7 @@ public class UserDAO extends DAO{
         ps.setString(1, username);
         ResultSet rs = ps.executeQuery();
         if (rs.next()) {
-            users.add(new User(rs.getInt("uid"), rs.getString("username"), rs.getString("email"), rs.getString("password"), false));
+            users.add(new User(rs.getInt("uid"), rs.getString("username"), rs.getString("email"), rs.getString("password"), rs.getString("membership"),false));
         }
         rs.close();
         return users;
@@ -40,7 +40,7 @@ public class UserDAO extends DAO{
         PreparedStatement ps = super.db_connect().prepareStatement(sql);
         ResultSet rs = ps.executeQuery();
         if (rs.next()) {
-            users.add(new User(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), false));
+            users.add(new User(rs.getInt("uid"), rs.getString("username"), rs.getString("email"), rs.getString("password"), rs.getString("membership"), false));
         }
         rs.close();
         return users;

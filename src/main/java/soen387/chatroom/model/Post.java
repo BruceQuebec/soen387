@@ -1,28 +1,45 @@
 package soen387.chatroom.model;
 
+import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlElementWrapper;
+import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
+import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement;
+
 import java.sql.Time;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
+
 public class Post {
     private int pid;
+
     private String title;
+
     private String content;
+
     private int userId;
+
     private String username;
+
+
     private List<String> hashTags;
+
     private List<Attachment> attachments;
+
+    private String groupToSee;
+
     private Time createdTime;
+
     private Time lastModifiedTime;
 
-    public Post(String title, String content, int userId, String username) {
+    public Post(String title, String content, int userId, String username, String groupToSee) {
         this.pid = pid;
         this.title = title;
         this.content = content;
         this.userId = userId;
         this.username = username;
+        this.groupToSee = groupToSee;
         this.hashTags = new ArrayList<>();
         this.attachments = new ArrayList<>();
     }
@@ -86,6 +103,10 @@ public class Post {
     }
 
     public void setLastModifiedTime(Time lastModifiedTime) { this.lastModifiedTime = lastModifiedTime; }
+
+    public String getGroupToSee() { return groupToSee; }
+
+    public void setGroupToSee(String groupToSee) { this.groupToSee = groupToSee; }
 
     public String timeFormat(Time timeObj){
         return new SimpleDateFormat("HH:mm:ss", Locale.ENGLISH).format(timeObj);

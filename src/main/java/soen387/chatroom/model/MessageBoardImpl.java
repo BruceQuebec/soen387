@@ -34,20 +34,38 @@ public class MessageBoardImpl implements MessageBoard {
     public List<User> userAuthenticate(String username, String password, String jsonUsrLocalFileFullPath) throws FileNotFoundException, NoSuchAlgorithmException {
         String passwordMd5 = User.md5gen(password);
         List<User> userdata = User.deserializationFromJson(jsonUsrLocalFileFullPath);
+
         List<User> userMatch = userdata.stream().filter(user -> user.username.equals(username) && user.password.equals(passwordMd5)).collect(Collectors.toList());
         return userMatch;
     }
 
     @Override
     public void userSignup(String jsonUsrLocalFileFullPath) throws NoSuchAlgorithmException, IOException {
-        User user1 = new User("admin", "admin@admin.com", "123456",true);
-        User user2 = new User("008z", "008z@sina.com", "45678",true);
-        User user3 = new User("40043261", "40043261@40043261.com", "40043261",true);
+        User user1 = new User("admin", "admin@admin.com", "123456", "admin",true);
+        User user2 = new User("008z", "008z@sina.com", "45678", "CompClass",true);
+        User user3 = new User("40043261", "40043261@40043261.com", "40043261", "GinaCodyDept",true);
         List<User> users = new ArrayList<User>();
         users.add(user1);
         users.add(user2);
         users.add(user3);
         User.serializationToJson(users, jsonUsrLocalFileFullPath);
+    }
+
+    public void groupCreate(String jsonGroupLocalFileFullPath, Group adminGroupObj) throws IOException {
+        Group group1 = new Group("Concordia","normal");
+        Group group2 = new Group("GinaCodyDept","normal", "Concordia");
+        Group group3 = new Group("CompClass", "normal", "GinaCodyDept");
+        Group group4 = new Group("SoenClass", "normal", "GinaCodyDept");
+        group1.addSubGroup(group2.getName());
+        group2.addSubGroup(group3.getName());
+        group2.addSubGroup(group4.getName());
+        List<Group> groups = new ArrayList<>();
+        groups.add(adminGroupObj);
+        groups.add(group1);
+        groups.add(group2);
+        groups.add(group3);
+        groups.add(group4);
+        Group.serializationToJson(groups, jsonGroupLocalFileFullPath);
     }
 
     @Override
@@ -57,7 +75,7 @@ public class MessageBoardImpl implements MessageBoard {
 
     @Override
     public int createPost(Post post) throws SQLException, ClassNotFoundException {
-        int pid = this.postDAO.addNewPost(post.getUserId(), post.getUsername(),post.getTitle(), post.getContent());
+        int pid = this.postDAO.addNewPost(post.getUserId(), post.getUsername(),post.getTitle(), post.getContent(), post.getGroupToSee());
         if(post.getHashTags().size()>0){
             post.getHashTags().stream().forEach(tag->{
                 try {
@@ -95,7 +113,7 @@ public class MessageBoardImpl implements MessageBoard {
     @Override
     public int editPost(int pid, Post post) throws SQLException, ClassNotFoundException {
         System.out.println("proceed to edit post");
-        this.postDAO.modifyPost(pid, post.getTitle(), post.getContent());
+        this.postDAO.modifyPost(pid, post.getTitle(), post.getContent(), post.getGroupToSee());
         this.postDAO.deletePTROfPost(pid);
         if(post.getHashTags().size()>0){
             post.getHashTags().stream().forEach(tag->{

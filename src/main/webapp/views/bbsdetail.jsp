@@ -2,6 +2,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%
 int uid_session = (int) request.getSession().getAttribute("uid");
+String user_membership = (String) request.getSession().getAttribute("membership");
 %>
 <html>
 
@@ -44,7 +45,8 @@ int uid_session = (int) request.getSession().getAttribute("uid");
                                         <p style="margin-top: 0; margin-bottom: 0"><b><font color="#008000">Section:</font></b>&nbsp;<b><font color="red">Development in process</font></b></p><br/>
                                         <p align="left" style="margin-top: 0; margin-bottom: 0"><b><font color="#008000">Subject:</font></b>&nbsp;${post.key.getTitle()} </p><br/>
                                         <p align="left" style="margin-top: 0; margin-bottom: 0"><b><font color="#008000">Content:</font></b>&nbsp;${post.key.getContent()}</p><br/>
-                                        <p align="left" style="margin-top: 0; margin-bottom: 0"><b><font color="#008000">Created in:</font></b>&nbsp;${post.key.getCreatedTime()} &nbsp;Modified in:${post.key.getLastModifiedTime()}</p><br/>
+                                        <p align="left" style="margin-top: 0; margin-bottom: 0"><b><font color="#008000">Created in:</font></b>&nbsp;${post.key.getCreatedTime()} &nbsp;<b><font color="#008000">Modified in:${post.key.getLastModifiedTime()}</font></b></p><br/>
+                                        <p align="left" style="margin-top: 0; margin-bottom: 0"><b><font color="#008000">Member group:</font></b>&nbsp;${post.key.getGroupToSee()} </p><br/>
                                         <p align="left" style="margin-top: 0; margin-bottom: 0">
                                             <b><font color="#008000">Hash Tags:</font></b><br/>
                                             <c:forEach items="${post.key.getHashTags()}" var="tag">
@@ -61,10 +63,12 @@ int uid_session = (int) request.getSession().getAttribute("uid");
                                         <p align="center" style="margin-top: 0; margin-bottom: 0">
                                             <input class="buttonface" type="submit" value="reply" name="reply">
                                             <c:set var="uid_session" value="<%=uid_session %>" scope="page" />
-                                            <c:if test="${uid_session == post.key.getUserId()}">
+                                            <c:set var="user_membership" value="<%=user_membership %>" scope="page" />
+                                            <c:if test="${uid_session == post.key.getUserId() || user_membership eq 'admin'}">
                                                 <input class="buttonface" type="submit" value="modify" name="modify">
                                                 <input class="buttonface" type="submit" value="delete" name="postdel">
                                             </c:if>
+                                            <input class="buttonface" type="submit" value="XML" name="toXml">
                                             <input type="hidden" name="pid" value="${post.key.getPid()}">
                                         </p>
                                         </form>

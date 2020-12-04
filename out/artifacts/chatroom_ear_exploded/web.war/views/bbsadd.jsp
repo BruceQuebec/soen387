@@ -1,5 +1,5 @@
 <%@ page contentType="text/html;charset=utf-8" %>
-
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <html>
 
 <head>
@@ -106,7 +106,13 @@ function check_input(theForm)
   <tr> 
     <td width="100%" valign="top">
       <form method="POST" action="messageboardcontent" onsubmit="return check_input(this)" name="addNewPostForm" enctype='multipart/form-data'>
-        <p style="margin-top: 0; margin-bottom: 0"><b><font color="#008000">Section:</font></b>&nbsp;<b><font color="red">Development in process</font></b></p><br/>
+        <p style="margin-top: 0; margin-bottom: 0"><b><font color="#008000">select group to see this post:</font></b>
+          <select align="left" style="margin-top: 0; margin-bottom: 0" name="group_to_see">
+            <option>Public</option>
+            <c:forEach items="${available_groups}" var="group">
+            <option value="${group}">${group}</option>
+            </c:forEach>
+          </select></p><br/>
         <p align="left" style="margin-top: 0; margin-bottom: 0"><b><font color="#008000">Subject:</font></b>&nbsp;<input type="text" name="title" size="50"></p><br/>
         <p align="left" style="margin-top: 0; margin-bottom: 0"><font color="#008000"><b>Emoji:</b></font><br/>
           <input type="radio" value="001" name="expression" checked><img border="0" src="../views/images/001.gif">

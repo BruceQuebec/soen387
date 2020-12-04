@@ -17,20 +17,23 @@ public class User {
     String username;
     String email;
     String password;
+    String membership;
 
-    public User(String username, String email, String password, boolean ifMd5) throws NoSuchAlgorithmException {
+    public User(String username, String email, String password, String membership, boolean ifMd5) throws NoSuchAlgorithmException {
         this.username = username;
         this.email = email;
+        this.membership = membership;
         if(ifMd5)
             this.password = User.md5gen(password);
         else
             this.password = password;
     }
 
-    public User(int userId, String username, String email, String password, boolean ifMd5) throws NoSuchAlgorithmException {
+    public User(int userId, String username, String email, String password, String membership, boolean ifMd5) throws NoSuchAlgorithmException {
         this.userId = userId;
         this.username = username;
         this.email = email;
+        this.membership = membership;
         if(ifMd5)
             this.password = User.md5gen(password);
         else
@@ -106,4 +109,8 @@ public class User {
     public void setPassword(String password) {
         this.password = password;
     }
+
+    public String getMembership() { return membership; }
+
+    public void setMembership(String membership) { this.membership = membership; }
 }

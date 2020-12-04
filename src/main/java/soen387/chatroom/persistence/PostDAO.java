@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class PostDAO extends DAO {
-    protected String  db_post_table;
+    protected String db_post_table;
     protected String db_ptr_table;
 
     public String getDb_post_table() {
@@ -24,9 +24,9 @@ public class PostDAO extends DAO {
         this.db_ptr_table = db_ptr_table;
     }
 
-    public int addNewPost(int uid, String username, String title, String content) throws SQLException, ClassNotFoundException {
-        String addNewPostSql = "INSERT INTO " + db_post_table + " (pid,title,content,uid,username,ctime,mtime)"
-                + " values (?,?,?,?,?,NOW(),NOW())";
+    public int addNewPost(int uid, String username, String title, String content, String groupToSee) throws SQLException, ClassNotFoundException {
+        String addNewPostSql = "INSERT INTO " + db_post_table + " (pid,title,content,uid,username,groupToSee,ctime,mtime)"
+                + " values (?,?,?,?,?,?,NOW(),NOW())";
         Connection db_connection = super.db_connect();
         PreparedStatement ps = db_connection.prepareStatement(addNewPostSql);
         int pid = super.getMaxTableId(db_connection, this.db_post_table, "pid") + 1;
@@ -35,6 +35,7 @@ public class PostDAO extends DAO {
         ps.setString(3,content);
         ps.setInt(4,uid);
         ps.setString(5,username);
+        ps.setString(6, groupToSee);
         ps.executeUpdate();
         super.db_closeConnection(db_connection);
         return pid;
@@ -87,14 +88,15 @@ public class PostDAO extends DAO {
         super.db_closeConnection(db_connection);
     }
 
-    public int modifyPost(int pid, String title, String content) throws SQLException, ClassNotFoundException {
-        String modifyPostSql = "UPDATE " + db_post_table + " SET title=?,content=?,mtime=NOW() WHERE pid=" + pid + "";
+    public int modifyPost(int pid, String title, String content, String groupToSee) throws SQLException, ClassNotFoundException {
+        String modifyPostSql = "UPDATE " + db_post_table + " SET title=?,content=?,groupToSee=?,mtime=NOW() WHERE pid=" + pid + "";
         Connection db_connection = super.db_connect();
         PreparedStatement ps = db_connection.prepareStatement(modifyPostSql);
         ps.setString(1, title);
         ps.setString(2, content);
+        ps.setString(3, groupToSee);
 //        ps.setInt(3,pid);
-        System.out.println("modifyPostSql: " + modifyPostSql);
+        //System.out.println("modifyPostSql: " + modifyPostSql);
         ps.executeUpdate();
 
         super.db_closeConnection(db_connection);
@@ -169,8 +171,9 @@ public class PostDAO extends DAO {
             String content = rs.getString(3);
             int uid = rs.getInt(4);
             String username = rs.getString(5);
-            Time ctime = rs.getTime(6);
-            Time mtime = rs.getTime(7);
+            String groupToSee = rs.getString(6);
+            Time ctime = rs.getTime(7);
+            Time mtime = rs.getTime(8);
 
 
             List<Pair<Integer, String>> attachmentIdList = new ArrayList<>();
@@ -183,7 +186,7 @@ public class PostDAO extends DAO {
             PreparedStatement psTag = db_connection.prepareStatement(listAttCheckSql);
             ResultSet rsTag = psTag.executeQuery(listTagCheckSql);
             while(rsTag.next()){ hashTags.add(rsTag.getString("tname")); }
-            Post post = new Post(title, content, uid, username);
+            Post post = new Post(title, content, uid, username, groupToSee);
 
             post.setPid(pid);
             post.setCreatedTime(ctime);

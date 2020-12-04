@@ -1,13 +1,12 @@
 package soen387.chatroom.controller;
 
 import javafx.util.Pair;
-import soen387.chatroom.model.MessageBoardImpl;
-import soen387.chatroom.model.Post;
-import soen387.chatroom.model.User;
+import soen387.chatroom.model.*;
 import soen387.chatroom.persistence.AttachmentDAO;
 import soen387.chatroom.persistence.PostDAO;
 import soen387.chatroom.persistence.TagDAO;
 import soen387.chatroom.persistence.UserDAO;
+import soen387.chatroom.service.userservice.UserManagerImpl;
 import soen387.chatroom.utils.Utils;
 
 import javax.servlet.ServletException;
@@ -18,12 +17,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
 import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 
 @WebServlet(urlPatterns = "/messageboard")
 @MultipartConfig(
@@ -139,19 +140,39 @@ public class MessageBoardListServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException{
         if(request.getParameterMap().containsKey("username") && !request.getParameter("username").equals("")  && request.getParameterMap().containsKey("password") && !request.getParameter("password").equals("")){
             try {
+                UserManagerFactory userManagerFactory = new LocalUserManagerFactory(Utils.getUserManagerClassNameKey(PROPERTIES_FILE, this));
+                UserManagerImpl userManager = (UserManagerImpl) userManagerFactory.getUserManager();
+
                 String jsonUsrLocalFilePath = Utils.getUsrLocalJsonPath(PROPERTIES_FILE,this);
                 String jsonUsrLocalFileFullPath = this.getServletContext().getRealPath(jsonUsrLocalFilePath);
-                List<User> userMatch = messageBoardImpl.userAuthenticate(request.getParameter("username"), request.getParameter("password"), jsonUsrLocalFileFullPath);
-                if(userMatch.size()>0){
+                Map<String, String> userManagerContext = new HashMap<>();
+                userManagerContext.put("username", request.getParameter("username"));
+                userManagerContext.put("password", request.getParameter("password"));
+                userManagerContext.put("userFilePath", jsonUsrLocalFileFullPath);
+                userManager.setContext(userManagerContext);
+                userManager.userAuthenticate();
+
+                if(userManager.getUserMatched().size()>0){
                     HttpSession session = request.getSession(true);
-                    session.setAttribute("username", userMatch.get(0).getUsername());
-                    session.setAttribute("uid", userMatch.get(0).getUserId());
+                    session.setAttribute("username", userManager.getUserMatched().get(0).getUsername());
+                    session.setAttribute("uid", userManager.getUserMatched().get(0).getUserId());
+                    session.setAttribute("membership", userManager.getUserMatched().get(0).getMembership());
                     doGet(request, response);
                 }
                 else {
                     request.getRequestDispatcher("/views/login.jsp").forward(request, response);
                 }
             } catch (NoSuchAlgorithmException e) {
+                e.printStackTrace();
+            } catch (IllegalAccessException e) {
+                e.printStackTrace();
+            } catch (InstantiationException e) {
+                e.printStackTrace();
+            } catch (ClassNotFoundException e) {
+                e.printStackTrace();
+            } catch (NoSuchMethodException e) {
+                e.printStackTrace();
+            } catch (InvocationTargetException e) {
                 e.printStackTrace();
             }
         }

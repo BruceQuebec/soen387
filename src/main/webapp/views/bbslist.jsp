@@ -9,6 +9,7 @@ int iPageLast = (int) request.getAttribute("iPageLast");
 int iPageNext = (int) request.getAttribute("iPageNext");
 int uid_session = (int) request.getSession().getAttribute("uid");
 String user_session = (String) request.getSession().getAttribute("username");
+String user_membership = (String) request.getSession().getAttribute("membership");
 %>
 <html>
 <head>
@@ -27,7 +28,8 @@ String user_session = (String) request.getSession().getAttribute("username");
 <table border="0" width="600"> 
   <tr>
     <c:set var="user_session" value="<%=user_session %>" scope="page" />
-      <td width="100%">welcome back:&nbsp;<b>${user_session}</b> &nbsp; <a href="/messageboard?query=1">&nbsp;search</a> &nbsp; <a href="/messageboard?logout=1">logout</a></td>
+    <c:set var="user_membership" value="<%=user_membership%>" scope="page"/>
+      <td width="100%">welcome back:&nbsp;<b>${user_session}</b> &nbsp;(membership: <b>${user_membership}</b>)&nbsp; <a href="/messageboard?query=1">&nbsp;search</a> &nbsp; <a href="/messageboard?logout=1">logout</a></td>
   </tr>
 </table>          
   </center>          
@@ -65,7 +67,9 @@ String user_session = (String) request.getSession().getAttribute("username");
 <div align="center">
   <table border="0" width="600">          
     <tr>          
-      <td width="100%"><c:set var="uid_session" value="<%=uid_session %>" scope="page" />
+      <td width="100%">
+          <c:set var="uid_session" value="<%=uid_session %>" scope="page" />
+
 	  <ul>
             <c:forEach items="${postList}" var="post">
           <li>
@@ -76,7 +80,7 @@ String user_session = (String) request.getSession().getAttribute("username");
                     <c:if test="${post.key.getCreatedTime()!=post.key.getLastModifiedTime()}">
                         <font color="#FF0000">★</font>
                     </c:if>
-                    <c:if test="${uid_session == post.key.getUserId()}">
+                    <c:if test="${uid_session == post.key.getUserId() || user_membership eq 'admin'}">
                       <a href="/messageboardcontent?pid=${post.key.getPid()}&postdel=delete">delete</a>&nbsp;&nbsp;
                     </c:if>
                     <c:forEach items="${post.key.getHashTags()}" var="tag">
